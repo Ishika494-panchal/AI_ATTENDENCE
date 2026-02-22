@@ -51,15 +51,19 @@ while True:
     cv2.imshow("Frame",frame)
     k=cv2.waitKey(1)
     if k==ord('o'):
-        speak("Attendance Taken..")
-        time.sleep(5)
+        #speak("Attendance Taken.."
+        if 'attendance' in locals():  # only speak if attendance exists
+            name_str = str(attendance[0])
+            speak(f"Attendance taken for {name_str}")
+            time.sleep(1)
+        #time.sleep(1)
         if exist:
-            with open("Attendance/Attendance_" + date + ".csv", "+a") as csvfile:
+            with open("Attendance/Attendance_" + date + ".csv", "a",newline='') as csvfile:
                 writer=csv.writer(csvfile)
                 writer.writerow(attendance)
             csvfile.close()
         else:
-            with open("Attendance/Attendance_" + date + ".csv", "+a") as csvfile:
+            with open("Attendance/Attendance_" + date + ".csv", "w",newline='') as csvfile:
                 writer=csv.writer(csvfile)
                 writer.writerow(COL_NAMES)
                 writer.writerow(attendance)
